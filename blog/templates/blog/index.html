@@ -1,12 +1,26 @@
 <!-- blog/index.html -->
 
+{% load static %}
+
+<link rel="stylesheet" href="{% static 'blog/css/blog.css' %}">
+<link rel="icon" href="{% static 'blog/img/favicon.ico' %}">
+
 <h1>投稿一覧</h1>
 <ul>
-  {% for post in object_list %}
-  {% if user.is_authenticated or post.is_public %}
-  <li>{% if not post.is_public %}[下書き] {% endif %}<a href="{% url 'blog:post_detail' post.id %}">{{ post.title }}</a></li>
-  {% endif %}
-  {% empty %}
-  <li>まだ投稿はありません。</li>
-  {% endfor %}
+  <li>
+    {% for post in object_list %}
+    {% if user.is_authenticated or post.is_public %}
+    {% if not post.is_public %}[下書き] {% endif %}
+    <a href="{% url 'blog:post_detail' post.id %}">{{ post.title }}</a>
+    <br>
+    {% else %}
+    <li>投稿はありません。</li>
+    {% endif %}
+    {% if post.image %}
+    <a href="{% url 'blog:post_detail' post.id %}">
+      <img src="{{ post.image.url }}" alt="{{ post.title }}">
+    </a>
+    {% endif %}
+    {% endfor %}
+  </li>
 </ul>
