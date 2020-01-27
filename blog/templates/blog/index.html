@@ -16,11 +16,11 @@
     {% else %}
     <li>投稿はありません。</li>
     {% endif %}
+    {% endfor %}
     {% if post.image %}
     <a href="{% url 'blog:post_detail' post.id %}">
       <img src="{{ post.image.url }}" alt="{{ post.title }}">
     </a>
     {% endif %}
-    {% endfor %}
   </li>
 </ul>
