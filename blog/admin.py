@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from blog.models import Category, Tag, Post, ContentImage
+from blog.models import Category, Tag, Post, ContentImage, Bosyu, Join, User
 
 
 class ContentImageInline(admin.TabularInline):
@@ -16,3 +16,6 @@ class PostAdmin(admin.ModelAdmin):
 admin.site.register(Category)
 admin.site.register(Tag)
 admin.site.register(Post,PostAdmin)
+admin.site.register(Bosyu)
+admin.site.register(Join)
+admin.site.register(User)

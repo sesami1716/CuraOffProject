@@ -4,7 +4,7 @@ from django.views.generic.detail import DetailView
 from django.views.generic.list import ListView
 from django.shortcuts import get_list_or_404, get_object_or_404
 
-from blog.models import Post, Category, Tag
+from blog.models import Post, Category, Tag, Bosyu, Join, User
 
 
 class PostDetailView(DetailView):
@@ -62,3 +62,14 @@ class TagPostView(ListView):
         context = super().get_context_data(**kwargs)
         context['tag'] = self.tag
         return context
+
+
+class BosyuListView(ListView):
+    model = Bosyu
+    template_name = 'blog/bosyu_list.html'
+
+    def index(request):
+        bosyu
+        _list = Bosyu.objects.all()
+        context = {'bosyu_list': todo_list}
+        return render(request, 'blog/index.html', context)
