@@ -53,17 +53,22 @@ class ContentImage(models.Model):
 class Bosyu(models.Model):
     bosyu_seq = models.AutoField(primary_key=True)
     bosyu_kbn = models.CharField(max_length=1)
-    bosyu_limit = models.DateTimeField(auto_now=True)
+    bosyu_limit = models.DateTimeField()
     venue = models.CharField(max_length=50)
+    venue_datetime = models.DateTimeField()
     title = models.CharField(max_length=100)
     main_text = models.CharField(max_length=1000)
     bosyu_people_cnt = models.IntegerField()
     bosyu_peple_kbn = models.CharField(max_length=1)
+    status = models.CharField(max_length=1)
     post_datetime = models.DateTimeField(auto_now=True)
     post_user_id = models.CharField(max_length=4)
     update_datetime = models.DateTimeField(auto_now=True)
     update_user_id = models.CharField(max_length=4)
     delete_flg = models.CharField(max_length=1)
+
+    class Meta:
+        ordering = ['-bosyu_limit']
 
     def __str__(self):
         return self.title
@@ -71,7 +76,7 @@ class Bosyu(models.Model):
 
 class Join(models.Model):
     join_seq = models.AutoField(primary_key=True)
-    bosyu_seq = models.IntegerField()
+    bosyu_seq = models.ForeignKey(Bosyu, db_column='bosyu_seq', on_delete=models.CASCADE)
     join_user_id = models.CharField(max_length=4)
     join_app_datetime = models.DateTimeField(auto_now=True)
     delete_flg = models.CharField(max_length=1)
@@ -83,6 +88,7 @@ class Join(models.Model):
 class User(models.Model):
     user_id = models.CharField(max_length=4)
     emp_no = models.CharField(max_length=4)
+    password = models.CharField(max_length=12)
     name = models.CharField(max_length=50)
     admin_flg = models.CharField(max_length=1)
 

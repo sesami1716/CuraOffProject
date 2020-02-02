@@ -66,10 +66,17 @@ class TagPostView(ListView):
 
 class BosyuListView(ListView):
     model = Bosyu
-    template_name = 'blog/bosyu_list.html'
+    template_name = 'blog/index.html'
 
     def index(request):
         bosyu
         _list = Bosyu.objects.all()
         context = {'bosyu_list': todo_list}
         return render(request, 'blog/index.html', context)
+
+class BosyuDetailView(DetailView):
+    model = Bosyu
+
+    def get_object(self, queryset=None):
+        obj = super().get_object(queryset=queryset)
+        return obj

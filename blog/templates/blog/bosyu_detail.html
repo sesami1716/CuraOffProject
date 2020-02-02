@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="alert alert-info" role="alert">
+    募集詳細
+  </div>
+  <div class="row">
+    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+        
+    </div>
+    <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
+    {{ object.title }}
+    {% if bosyu.status == "1" %}
+    <span class="badge badge-info">募集中</span>
+    {% else %}
+    <span class="badge badge-secondary">募集終了</span>
+    {% endif %}
+    {% if bosyu.bosyu_kbn == "1" %}
+    <span class="badge badge-success">勉強会</span>
+    {% elif bosyu.bosyu_kbn == "2" %}
+    <span class="badge badge-primary">交流会</span>
+    {% else %}
+    <span class="badge badge-light">その他</span>
+    {% endif %}
+    <table>
+        <tr><th>募集人数</th><td>A-1</td></tr>
+        <tr><th>場所</th><td>B-1</td></tr>
+        <tr><th>日時</th><td>C-1</td></tr>
+        <tr><th>募集内容</th><td>D-1</td></tr>
+    </table>
+    </div>
+</div>
+
+
+{% endblock %}
