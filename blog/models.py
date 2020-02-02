@@ -57,7 +57,7 @@ class Bosyu(models.Model):
     venue = models.CharField(max_length=50)
     venue_datetime = models.DateTimeField()
     title = models.CharField(max_length=100)
-    main_text = models.CharField(max_length=1000)
+    main_text = models.TextField(max_length=1000)
     bosyu_people_cnt = models.IntegerField()
     bosyu_peple_kbn = models.CharField(max_length=1)
     status = models.CharField(max_length=1)

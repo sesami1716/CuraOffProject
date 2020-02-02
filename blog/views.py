@@ -69,9 +69,8 @@ class BosyuListView(ListView):
     template_name = 'blog/index.html'
 
     def index(request):
-        bosyu
-        _list = Bosyu.objects.all()
-        context = {'bosyu_list': todo_list}
+        bosyu_list = Bosyu.objects.all()
+        context = {'bosyu_list': bosyu_list}
         return render(request, 'blog/index.html', context)
 
 class BosyuDetailView(DetailView):
@@ -80,3 +79,4 @@ class BosyuDetailView(DetailView):
     def get_object(self, queryset=None):
         obj = super().get_object(queryset=queryset)
         return obj
+
