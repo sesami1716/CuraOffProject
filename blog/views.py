@@ -3,6 +3,7 @@ from django.http import Http404
 from django.views.generic.detail import DetailView
 from django.views.generic.list import ListView
 from django.shortcuts import get_list_or_404, get_object_or_404
+from django.shortcuts import render
 
 from blog.models import Post, Category, Tag, Bosyu, Join, User
 
@@ -73,10 +74,15 @@ class BosyuListView(ListView):
         context = {'bosyu_list': bosyu_list}
         return render(request, 'blog/index.html', context)
 
-class BosyuDetailView(DetailView):
-    model = Bosyu
+#class BosyuDetailView(DetailView):
+        #model = Bosyu
 
-    def get_object(self, queryset=None):
-        obj = super().get_object(queryset=queryset)
-        return obj
+    #def get_object(self, queryset=None):
+    #    obj = super().get_object(queryset=queryset)
+    #    return obj
 
+def detail(request,bosyu_seq):
+    bosyuObj = Bosyu.objects.get(bosyu_seq = bosyu_seq)
+    joinList = Join.objects.filter(bosyu_seq = bosyu_seq)
+    context = {'joinList' : joinList,'bosyuObj' : bosyuObj,}
+    return render(request,'blog/bosyu_detail.html',context)

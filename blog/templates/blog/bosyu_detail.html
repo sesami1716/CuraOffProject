@@ -8,39 +8,48 @@
   <div class="row">
     <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
         <div class="alert alert-warning" role="alert">
+            提案者
         </div>
-        {{ object.bosyu_seq.join_user_id }}
+        {{ bosyuObj.post_user_nm}}<br><br>
+        <div class="alert alert-warning" role="alert">
+            参加者一覧
+        </div>
+        {% for join in joinList %}
+            {{ join.join_user_nm}}<br><br>
+        {% endfor%}
     </div>
+
     <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
         <div class="alert alert-warning" role="alert">
-        {{ object.title }}
+        {{ bosyuObj.title }}
         </div>
-    {% if bosyu.status == "1" %}
+    {% if bosyuObj.status == "1" %}
     <span class="badge badge-info">募集中</span>
     {% else %}
     <span class="badge badge-secondary">募集終了</span>
     {% endif %}
-    {% if bosyu.bosyu_kbn == "1" %}
+    {% if bosyuObj.bosyu_kbn == "1" %}
     <span class="badge badge-success">勉強会</span>
-    {% elif bosyu.bosyu_kbn == "2" %}
+    {% elif bosyuObj.bosyu_kbn == "2" %}
     <span class="badge badge-primary">交流会</span>
     {% else %}
     <span class="badge badge-light">その他</span>
     {% endif %}
     <table class="table">
-        <tr><th>募集人数</th><td>{{ object.bosyu_people_cnt }}
-            {% if bosyu.bosyu_peple_kbn == "1" %}
+        <tr><th>募集人数</th><td>{{ bosyuObj.bosyu_people_cnt }}
+            {% if bosyuObj.bosyu_peple_kbn == "1" %}
             人以上
-            {% elif bosyu.bosyu_peple_kbn == "2" %}
+            {% elif bosyuObj.bosyu_peple_kbn == "2" %}
             人以下
             {% else %}
             人
             {% endif %}
         </td></tr>
-        <tr><th>場所</th><td>{{ object.venue }}</td></tr>
-        <tr><th>日時</th><td>{{ object.venue_datetime }}</td></tr>
-        <tr><th>募集内容</th><td>{{ object.main_text | linebreaks}}</td></tr>
+        <tr><th>場所</th><td>{{ bosyuObj.venue }}</td></tr>
+        <tr><th>日時</th><td>{{ bosyuObj.venue_datetime }}</td></tr>
+        <tr><th>募集内容</th><td>{{ bosyuObj.main_text | linebreaks}}</td></tr>
     </table>
+    <p class="text-center"><button type="button" class="btn btn-warning">参加する！</button></p>
     </div>
 </div>
 

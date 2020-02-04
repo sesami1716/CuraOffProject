@@ -63,6 +63,7 @@ class Bosyu(models.Model):
     status = models.CharField(max_length=1)
     post_datetime = models.DateTimeField(auto_now=True)
     post_user_id = models.CharField(max_length=4)
+    post_user_nm = models.TextField(max_length=50)
     update_datetime = models.DateTimeField(auto_now=True)
     update_user_id = models.CharField(max_length=4)
     delete_flg = models.CharField(max_length=1)
@@ -78,6 +79,7 @@ class Join(models.Model):
     join_seq = models.AutoField(primary_key=True)
     bosyu_seq = models.ForeignKey(Bosyu, db_column='bosyu_seq', on_delete=models.CASCADE)
     join_user_id = models.CharField(max_length=4)
+    join_user_nm = models.TextField(max_length=50)
     join_app_datetime = models.DateTimeField(auto_now=True)
     delete_flg = models.CharField(max_length=1)
 
@@ -89,7 +91,7 @@ class User(models.Model):
     user_id = models.CharField(max_length=4)
     emp_no = models.CharField(max_length=4)
     password = models.CharField(max_length=12)
-    name = models.CharField(max_length=50)
+    name = models.TextField(max_length=50)
     admin_flg = models.CharField(max_length=1)
 
     def __str__(self):
