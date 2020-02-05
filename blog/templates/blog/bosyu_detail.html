@@ -7,15 +7,15 @@
   </div>
   <div class="row">
     <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
-        <div class="alert alert-warning" role="alert">
+        <div class="alert alert-warning text-center" role="alert">
             提案者
         </div>
-        {{ bosyuObj.post_user_nm}}<br><br>
-        <div class="alert alert-warning" role="alert">
+        <p class="text-center">{{ bosyuObj.post_user_nm }}</p>
+        <div class="alert alert-warning text-center" role="alert">
             参加者一覧
         </div>
         {% for join in joinList %}
-            {{ join.join_user_nm}}<br><br>
+            <p class="text-center">{{ join.join_user_nm}}</p>
         {% endfor%}
     </div>
 

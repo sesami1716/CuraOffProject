@@ -135,3 +135,7 @@ STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
 #    'django.contrib.staticfiles.finders.DefaultStorageFinder',
 )
+
+LOGIN_URL = 'login' # ログインしていないときのリダイレクト先
+LOGIN_REDIRECT_URL = '/' # ログイン後のリダイレクト先
+LOGOUT_REDIRECT_URL = '/' # ログアウト後のリダイレクト先

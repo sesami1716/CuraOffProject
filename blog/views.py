@@ -4,8 +4,13 @@ from django.views.generic.detail import DetailView
 from django.views.generic.list import ListView
 from django.shortcuts import get_list_or_404, get_object_or_404
 from django.shortcuts import render
+from django.contrib.auth.decorators import login_required
 
 from blog.models import Post, Category, Tag, Bosyu, Join, User
+from django.contrib.auth.views import LoginView, LogoutView
+from django.contrib.auth.mixins import LoginRequiredMixin
+from django.views.generic import TemplateView
+from . import forms
 
 
 class PostDetailView(DetailView):
@@ -81,8 +86,16 @@ class BosyuListView(ListView):
     #    obj = super().get_object(queryset=queryset)
     #    return obj
 
+@login_required
 def detail(request,bosyu_seq):
     bosyuObj = Bosyu.objects.get(bosyu_seq = bosyu_seq)
     joinList = Join.objects.filter(bosyu_seq = bosyu_seq)
     context = {'joinList' : joinList,'bosyuObj' : bosyuObj,}
     return render(request,'blog/bosyu_detail.html',context)
+
+class MyLoginView(LoginView):
+    form_class = forms.LoginForm
+    template_name = "blog/login.html"
+
+class MyLogoutView(LoginRequiredMixin, LogoutView):
+    template_name = "blog/logout.html"
