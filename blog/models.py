@@ -62,10 +62,10 @@ class Bosyu(models.Model):
     bosyu_peple_kbn = models.CharField(max_length=1)
     status = models.CharField(max_length=1)
     post_datetime = models.DateTimeField(auto_now=True)
-    post_user_id = models.CharField(max_length=4)
+    post_user_id = models.CharField(max_length=8)
     post_user_nm = models.TextField(max_length=50)
     update_datetime = models.DateTimeField(auto_now=True)
-    update_user_id = models.CharField(max_length=4)
+    update_user_id = models.CharField(max_length=8)
     delete_flg = models.CharField(max_length=1)
 
     class Meta:
@@ -78,7 +78,7 @@ class Bosyu(models.Model):
 class Join(models.Model):
     join_seq = models.AutoField(primary_key=True)
     bosyu_seq = models.ForeignKey(Bosyu, db_column='bosyu_seq', on_delete=models.CASCADE)
-    join_user_id = models.CharField(max_length=4)
+    join_user_id = models.CharField(max_length=8)
     join_user_nm = models.TextField(max_length=50)
     join_app_datetime = models.DateTimeField(auto_now=True)
     delete_flg = models.CharField(max_length=1)
