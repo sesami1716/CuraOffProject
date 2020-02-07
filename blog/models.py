@@ -51,15 +51,27 @@ class ContentImage(models.Model):
 
 
 class Bosyu(models.Model):
+    BOSYU_KBN_CHOICES = (
+        ('1', '勉強会'),
+        ('2', '交流会'),
+        ('9', 'その他'),
+    )
+
+    BOSYU_PEP_KBN_CHOICES = (
+        ('1', '人以上'),
+        ('2', '人以下'),
+        ('9', '人'),
+    )
+
     bosyu_seq = models.AutoField(primary_key=True)
-    bosyu_kbn = models.CharField(max_length=1)
+    bosyu_kbn = models.CharField(max_length=1,choices=BOSYU_KBN_CHOICES)
     bosyu_limit = models.DateTimeField()
     venue = models.CharField(max_length=50)
     venue_datetime = models.DateTimeField()
     title = models.CharField(max_length=100)
     main_text = models.TextField(max_length=1000)
     bosyu_people_cnt = models.IntegerField()
-    bosyu_peple_kbn = models.CharField(max_length=1)
+    bosyu_peple_kbn = models.CharField(max_length=1,choices=BOSYU_PEP_KBN_CHOICES)
     status = models.CharField(max_length=1)
     post_datetime = models.DateTimeField(auto_now=True)
     post_user_id = models.CharField(max_length=8)
