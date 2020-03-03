@@ -1,0 +1,83 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block content %}
+{% if messages %}
+		{% for message in messages %}
+			<li class="alert{% if message.tags %} alert-{{ message.tags }}{% endif %}" role="alert">{{ message }}</li>
+		{% endfor %}
+{% endif %}
+<div class="alert alert-info" role="alert">
+    提案詳細
+  </div>
+  <div class="row">
+    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+        <div class="alert alert-warning text-center" role="alert">
+            提案者
+        </div>
+        <p class="text-center">{{ bosyuObj.post_user_nm }}</p>
+        <div class="alert alert-warning text-center" role="alert">
+            参加者一覧
+        </div>
+        {% for join in joinList %}
+            <p class="text-center">{{ join.join_user_nm}}</p>
+        {% endfor%}
+    </div>
+
+    <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
+        <div class="alert alert-warning" role="alert">
+        {{ bosyuObj.title }}
+        </div>
+    {% if bosyuObj.status == "1" %}
+    <span class="badge badge-info">募集中</span>
+    {% else %}
+    <span class="badge badge-secondary">募集終了</span>
+    {% endif %}
+    {% if bosyuObj.bosyu_kbn == "1" %}
+    <span class="badge badge-success">勉強会</span>
+    {% elif bosyuObj.bosyu_kbn == "2" %}
+    <span class="badge badge-primary">交流会</span>
+    {% else %}
+    <span class="badge badge-light">その他</span>
+    {% endif %}
+    <table class="table">
+        <tr><th>募集人数</th><td>{{ bosyuObj.bosyu_people_cnt }}
+            {% if bosyuObj.bosyu_peple_kbn == "1" %}
+            人以上
+            {% elif bosyuObj.bosyu_peple_kbn == "2" %}
+            人以下
+            {% else %}
+            人
+            {% endif %}
+        </td></tr>
+        <tr><th>場所</th><td>{{ bosyuObj.venue }}</td></tr>
+        <tr><th>日時</th><td>{{ bosyuObj.venue_datetime }}</td></tr>
+        <tr><th>募集内容</th><td>{{ bosyuObj.main_text | linebreaks}}</td></tr>
+        <tr><th>募集期限</th><td>{{ bosyuObj.bosyu_limit}}</td></tr>
+    </table>
+    <form action="/bosyu/{{ bosyuObj.bosyu_seq }}/" method="post">
+        {% csrf_token %}
+    <input type="hidden" name="bosyu" value="{{ bosyuObj }}"/>
+    {% if bosyuObj.post_user_id == user.username %}
+    <p></p>
+    {% elif bosyuObj.status == "9" %}
+    <p></p>
+    {% else %}
+        {% for join in joinList %}
+            {% if join.join_user_id == user.username %}
+            <div class="card">
+                <div class="card-body">
+                  この提案に参加しています！
+                </div>
+            </div>
+            {% else %}
+                {% if forloop.last %}
+                <p class="text-center"><button type="submit" name="JoinBtn"  class="btn btn-warning">参加する！</button></p>          
+                {% endif %}
+            {% endif %}
+        {% endfor %}
+    {% endif %}
+</form>
+</div>
+</div>
+{% endblock %}
