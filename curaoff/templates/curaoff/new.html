@@ -2,7 +2,51 @@
 {% load static %}
 
 {% block content %}
-
-
+<h1>募集の登録</h1>
+<table class="table">
+  <form method="post" action="">
+  {% csrf_token %}
+  <tbody>
+    <tr>
+      <th>タイトル</th>
+      <td>{{ form.title }}</td>
+    </tr>
+    <tr>
+      <th>イベント種別</th>
+      <td>{{ form.bosyu_kbn }}</td>
+    </tr>
+    <tr>
+      <th>開催場所</th>
+      <td>{{ form.venue }}</td>
+    </tr>
+    <tr>
+      <th>開催日時</th>
+      <td>{{ form.venue_datetime }}</td>
+    </tr>
+    <tr>
+      <th>募集人数</th>
+      <td>{{ form.bosyu_people_cnt }}</td>
+    </tr>
+    <tr>
+      <th>募集人数区分</th>
+      <td>{{ form.bosyu_peple_kbn }}</td>
+    </tr>
+    <tr>
+      <th>募集期限</th>
+      <td>{{ form.bosyu_limit }}</td>
+    </tr>
+    <tr>
+      <th>本文</th>
+      <td>{{ form.main_text }}</td>
+    </tr>
+  </tbody>
+    <tr>
+    <td><input class="btn btn-primary" type="submit" value="登録">
+    </td>
+    <td>
+    </td>
+    </tr>
+  </form>
+</table>
 
 {% endblock %}

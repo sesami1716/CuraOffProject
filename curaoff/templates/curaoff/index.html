@@ -6,7 +6,7 @@
   <p class="text-center">『CuraOff.』は、オフの時間に社員間で集まるための"声を掛け合う場所"です。</p>
   <p class="text-center">まずは提案してみましょう！</p>
   <p>　</p>
-  <p class="text-center"><button type="button" class="btn btn-warning">提案する！</button></p>
+  <p class="text-center"><a href="{% url 'curaoff:new' %}" class="btn btn-warning">提案する！</a></p>
   <p>　</p>
   <hr><p class="text-center">提案一覧</p><hr>
 
@@ -42,7 +42,7 @@
               <span class="badge badge-pill badge-warning"> 募集期限 </span>
               {{ bosyu.bosyu_limit }}まで 
               <br><br>
-              <a href="{% url 'blog:bosyu_detail' bosyu.bosyu_seq %}" class="btn btn-outline-success">詳細</a>
+              <a href="{% url 'curaoff:bosyu_detail' bosyu.bosyu_seq %}" class="btn btn-outline-success">詳細</a>
             </div>
         </div>
       </div>
@@ -50,9 +50,9 @@
     </div>
   </div>  
   {% else %}
-    <p class="text-center">まだ募集がありません。</p>
-    <p class="text-center">ぜひ募集しましょう！</p>
-    <p class="text-center"><button type="button" class="btn btn-warning">募集する！</button></p>
+    <p class="text-center">まだ提案がありません。</p>
+    <p class="text-center">ぜひ提案しましょう！</p>
+    <p class="text-center"><a href="{% url 'curaoff:new' %}" class="btn btn-warning">提案する！</a></p>
   {% endif %}
   <br><br>
 </div>

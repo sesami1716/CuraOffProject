@@ -10,12 +10,14 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 
 from curaoff.models import Bosyu, Join
+from .models import Bosyu, Join
 from django.contrib.auth.views import LoginView, LogoutView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import TemplateView
 from . import forms
 from django.utils import timezone
 from django.urls import reverse
+from .forms import NewForm
 
 class BosyuListView(ListView):
     model = Bosyu
@@ -79,3 +81,36 @@ class MyLoginView(LoginView):
 
 class MyLogoutView(LoginRequiredMixin, LogoutView):
     template_name = "curaoff/logout.html"
+
+@login_required
+def new(request):
+    template_name = "curaoff/new.html"
+    return render(request,template_name)
+
+@login_required
+def bosyu_new(request):
+    form = NewForm(request.POST or None)
+    if form.is_valid():
+        b = Bosyu()
+        b.bosyu_kbn = form.cleaned_data['bosyu_kbn']
+        b.bosyu_limit =form.cleaned_data['bosyu_kbn']
+        b.venue =form.cleaned_data['bosyu_kbn']
+        b.venue_datetime =form.cleaned_data['bosyu_kbn']
+        b.title =form.cleaned_data['bosyu_kbn']
+        b.main_text =form.cleaned_data['bosyu_kbn']
+        b.bosyu_people_cnt =form.cleaned_data['bosyu_kbn']
+        b.bosyu_peple_kbn =form.cleaned_data['bosyu_kbn']
+
+        Bosyu.objects.create(
+            bosyu_kbn=b.bosyu_kbn,
+            bosyu_limit=b.bosyu_limit,
+            venue=b.venue,
+            venue_datetime=b.venue_datetime,
+            title=b.title,
+            main_text=b.main_text,
+            bosyu_people_cnt=b.bosyu_people_cnt,
+            bosyu_peple_kbn=b.bosyu_peple_kbn,
+        )
+        messages.success(request, '提案しました！')
+        return redirect('curaoff/index.html')
+    return render(request, 'curaoff/new.html', {'form': form})

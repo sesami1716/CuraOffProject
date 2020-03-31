@@ -16,4 +16,5 @@ urlpatterns = [
     path('login/', views.MyLoginView.as_view(), name="login"),
     url(r'^logout/$', views.MyLogoutView.as_view(), {'template_name': 'index.html'}, name='logout'), 
     path('join_add/<int:bosyu_seq>/', views.join_add, name='join_add'),
+    path('new/', views.bosyu_new, name='new'),
 ]
