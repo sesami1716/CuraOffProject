@@ -1,3 +1,4 @@
+import bootstrap_datepicker_plus as datetimepicker
 from django.contrib.auth import forms as auth_forms
 from django import forms
 from .models import Bosyu
@@ -10,8 +11,10 @@ class LoginForm(auth_forms.AuthenticationForm):
             field.widget.attrs['placeholder'] = field.label
 
 class NewForm(forms.ModelForm):
-    bosyu_limit = forms.SplitDateTimeField(label='募集期限')
-    venue_datetime = forms.SplitDateTimeField(label='開催日時')
+    def __init__(self, *args, **kwargs):
+        super(NewForm, self).__init__(*args, **kwargs)
+        for field in self.fields.values():
+            field.widget.attrs["class"] = "form-control"
 
     class Meta:
         model = Bosyu
@@ -25,3 +28,19 @@ class NewForm(forms.ModelForm):
             ,'bosyu_people_cnt'
             ,'bosyu_peple_kbn'
             )
+        widgets = {
+            'bosyu_limit': datetimepicker.DateTimePickerInput(
+                format='%Y-%m-%d %H:%M',
+                options={
+                    'locale': 'ja',
+                    'dayViewHeaderFormat': 'YYYY年 MMMM',
+                }
+            ),
+            'venue_datetime': datetimepicker.DateTimePickerInput(
+                format='%Y-%m-%d %H:%M',
+                options={
+                    'locale': 'ja',
+                    'dayViewHeaderFormat': 'YYYY年 MMMM',
+                }
+            ),
+        }

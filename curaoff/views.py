@@ -93,13 +93,13 @@ def bosyu_new(request):
     if form.is_valid():
         b = Bosyu()
         b.bosyu_kbn = form.cleaned_data['bosyu_kbn']
-        b.bosyu_limit =form.cleaned_data['bosyu_kbn']
-        b.venue =form.cleaned_data['bosyu_kbn']
-        b.venue_datetime =form.cleaned_data['bosyu_kbn']
-        b.title =form.cleaned_data['bosyu_kbn']
-        b.main_text =form.cleaned_data['bosyu_kbn']
-        b.bosyu_people_cnt =form.cleaned_data['bosyu_kbn']
-        b.bosyu_peple_kbn =form.cleaned_data['bosyu_kbn']
+        b.bosyu_limit =form.cleaned_data['bosyu_limit']
+        b.venue =form.cleaned_data['venue']
+        b.venue_datetime =form.cleaned_data['venue_datetime']
+        b.title =form.cleaned_data['title']
+        b.main_text =form.cleaned_data['main_text']
+        b.bosyu_people_cnt =form.cleaned_data['bosyu_people_cnt']
+        b.bosyu_peple_kbn =form.cleaned_data['bosyu_peple_kbn']
 
         Bosyu.objects.create(
             bosyu_kbn=b.bosyu_kbn,
@@ -110,7 +110,8 @@ def bosyu_new(request):
             main_text=b.main_text,
             bosyu_people_cnt=b.bosyu_people_cnt,
             bosyu_peple_kbn=b.bosyu_peple_kbn,
+            status='1'
         )
         messages.success(request, '提案しました！')
-        return redirect('curaoff/index.html')
+        return HttpResponseRedirect(reverse('curaoff:bosyu_list'))
     return render(request, 'curaoff/new.html', {'form': form})
